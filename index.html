@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Reader – Интерактивный ридер для Skillbox</title>
+    <link rel="stylesheet" href="style.css">  <!-- Подключение CSS -->
+</head>
+<body>
+    <h1>Language Reader – Интерактивный ридер для Skillbox</h1>
+    <h2>Пример урока (B2-2)</h2>
+    <h3><span class="sentence" data-en="The Path to Educatedness">Путь к образованности</span></h3>
+    
+    <div class="text-container">
+        <p>
+            <span class="sentence" data-en="John decided to become an educated person, knowing nothing about where to start.">Джон решил стать <strong>образованным человеком</strong>, <strong>ничего не зная</strong> о том, с чего начать.</span>
+            <span class="sentence" data-en="Climbing to the attic of his old house, he looked round carefully."> <strong>Поднимаясь</strong> на чердак своего старого дома, он <strong>тщательно осматривался</strong>.</span>
+            <span class="sentence" data-en="Judging by the dust, no one had been there for years."> <strong>Судя по</strong> пыли, никто не был там годами.</span>
+            <span class="sentence" data-en="Thoroughly searching the boxes, he found ancient books — and a spider that ran away without hurrying, as if it owned the place."> <strong>Тщательно</strong> обыскивая коробки, он нашёл древние книги — и паука, который убежал <strong>не торопясь</strong>, будто хозяин дома.</span>
+        </p>
+        <p>
+            <span class="sentence" data-en="Taking them downstairs without hurrying (the spider too, putting it mildly), John sat down, smiling cheerfully at his discovery."> <strong>Спуская</strong> их вниз <strong>не торопясь</strong> (и паука тоже, <strong>мягко говоря</strong>), Джон сел, <strong>весело улыбаясь</strong> своей находке.</span>
+            <span class="sentence" data-en="Reading the first page, he sneezed loudly."> <strong>Читая</strong> первую страницу, он громко чихнул.</span>
+            <span class="sentence" data-en="While talking to his neighbor yesterday, she mentioned these books, he recalled, nodding to himself — then sneezed again."> <strong>Когда разговаривал</strong> с соседкой вчера, она упомянула эти книги, вспомнил он, <strong>кивнув</strong> себе — и снова чихнул.</span>
+        </p>
+        <p>
+            <span class="sentence" data-en="But his brother passed by, keeping on being late for work as usual.">Но брат <strong>прошёл мимо</strong>, <strong>продолжая опаздывать</strong> на работу как обычно.</span>
+            <span class="sentence" data-en="“How does he always manage to escape responsibilities, getting away with every insult to punctuality?” John wondered, shaking his head."> «<strong>Как ему всегда удаётся</strong> избежать ответственности, <strong>избегая наказания</strong> за каждое <strong>оскорбление</strong> пунктуальности?» — удивился Джон, <strong>качая</strong> головой.</span>
+            <span class="sentence" data-en="The brother waved without paying attention and vanished."> Брат махнул <strong>не обращая внимания</strong> и исчез.</span>
+        </p>
+        <p>
+            <span class="sentence" data-en="Putting it mildly, becoming educated is dusty work."> <strong>Мягко выражаясь</strong>, стать образованным — пыльная работа.</span>
+            <span class="sentence" data-en="Roughly speaking, it takes time, effort, and a good vacuum cleaner."> <strong>Грубо говоря</strong>, нужны время, усилия и хороший пылесос.</span>
+            <span class="sentence" data-en="Generally speaking, starting with old books is smart."> <strong>Вообще говоря</strong>, начинать со старых книг — умно.</span>
+            <span class="sentence" data-en="Strictly speaking, though, taking his shyness into account, John should read without paying attention to spiders — or brothers."> <strong>Строго говоря</strong>, однако, <strong>учитывая его застенчивость</strong>, Джону следует читать <strong>не обращая внимания</strong> на пауков — или братьев.</span>
+        </p>
+        <p>
+            <span class="sentence" data-en="He planned to pass by the library tomorrow, wanting to learn more.">Он планировал <strong>пройти мимо</strong> библиотеки завтра, <strong>желая</strong> узнать больше.</span>
+            <span class="sentence" data-en="Speaking softly to himself (and the spider), he continued reading, dreaming of knowledge — and a cleaner attic."> <strong>Говоря</strong> тихо себе (и пауку), он продолжил <strong>читать</strong>, <strong>мечтая</strong> о знаниях — и чистом чердаке.</span>
+        </p>
+    </div>
+    
+    <button id="play-all">Play All</button>
+    
+    <script>
+        const sentences = document.querySelectorAll('.sentence');
+        let synth = window.speechSynthesis;
+        let britishVoice = null;
+        let currentSelected = null;
+
+        // Load voices and select British female if possible
+        function loadVoices() {
+            const voices = synth.getVoices();
+            britishVoice = voices.find(voice => voice.lang === 'en-GB' && (voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('woman') || voice.gender === 'female' || true)); // Fallback to any en-GB
+            if (!britishVoice) {
+                britishVoice = voices.find(voice => voice.lang === 'en-GB');
+            }
+        }
+
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+        loadVoices(); // Initial load
+
+        // Speak function
+        function speak(text) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-GB';
+            if (britishVoice) {
+                utterance.voice = britishVoice;
+            }
+            synth.speak(utterance);
+        }
+
+        // Handle sentence click
+        sentences.forEach(sentence => {
+            sentence.addEventListener('click', () => {
+                if (currentSelected && currentSelected.sentence === sentence) {
+                    // Deselect
+                    resetSelection();
+                    currentSelected = null;
+                } else {
+                    // Reset previous
+                    resetSelection();
+
+                    // Fade others
+                    sentences.forEach(s => s.classList.add('faded'));
+                    sentence.classList.remove('faded');
+
+                    // Create translation display
+                    const transDisplay = document.createElement('div');
+                    transDisplay.classList.add('trans-display');
+                    transDisplay.textContent = sentence.getAttribute('data-en');
+
+                    // Create buttons
+                    const transBtn = document.createElement('button');
+                    transBtn.classList.add('icon-btn');
+                    transBtn.textContent = '🇬🇧';
+                    transBtn.addEventListener('click', () => {
+                        transDisplay.style.display = transDisplay.style.display === 'none' ? 'inline-block' : 'none';
+                    });
+
+                    const ttsBtn = document.createElement('button');
+                    ttsBtn.classList.add('icon-btn');
+                    ttsBtn.textContent = '🔊';
+                    ttsBtn.addEventListener('click', () => {
+                        const enText = sentence.getAttribute('data-en');
+                        speak(enText);
+                    });
+
+                    // Append after sentence
+                    sentence.after(transDisplay);
+                    sentence.after(ttsBtn);
+                    sentence.after(transBtn);
+
+                    currentSelected = { sentence, transBtn, ttsBtn, transDisplay };
+                }
+            });
+        });
+
+        function resetSelection() {
+            if (currentSelected) {
+                currentSelected.transBtn.remove();
+                currentSelected.ttsBtn.remove();
+                currentSelected.transDisplay.remove();
+                sentences.forEach(s => s.classList.remove('faded'));
+            }
+        }
+
+        // Play All button
+        document.getElementById('play-all').addEventListener('click', () => {
+            resetSelection(); // Reset any selection before playing all
+            const enTexts = Array.from(sentences).map(s => s.getAttribute('data-en'));
+            let index = 0;
+            function speakNext() {
+                if (index < enTexts.length) {
+                    const utterance = new SpeechSynthesisUtterance(enTexts[index]);
+                    utterance.lang = 'en-GB';
+                    if (britishVoice) {
+                        utterance.voice = britishVoice;
+                    }
+                    utterance.onend = () => {
+                        index++;
+                        speakNext();
+                    };
+                    synth.speak(utterance);
+                }
+            }
+            speakNext();
+        });
+    </script>
+</body>
+</html>
