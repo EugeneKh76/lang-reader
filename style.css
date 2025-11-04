@@ -4,6 +4,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     line-height: 1.6;
+    background-color: #f0f0f0;  /* Мягкий серый фон для страницы */
 }
 h1, h2 {
     text-align: center;
@@ -14,6 +15,29 @@ h3 {
 }
 .text-container {
     margin-bottom: 20px;
+    background-color: #fdfcf7;  /* Бежевый фон как старая бумага */
+    background-image: repeating-linear-gradient(to bottom, #fdfcf7, #fdfcf7 99%, #e0d8c0 100%);  /* Лёгкая текстура полосками "под старину" */
+    background-size: 100% 2px;  /* Тонкие линии для текстуры */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Тень для "книжного" вида */
+    border-radius: 5px;  /* Лёгкие закруглённые углы */
+    position: relative;  /* Для pseudo-элементов */
+}
+.text-container::before, .text-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 20px;  /* Увеличил высоту для более заметного эффекта */
+    background: linear-gradient(to bottom, #fdfcf7 0%, transparent 100%);  /* Градиент для "рваного" края в стиле рукописи */
+    z-index: -1;
+}
+.text-container::before {
+    top: -20px;  /* Верхний рваный край */
+}
+.text-container::after {
+    bottom: -20px;  /* Нижний рваный край */
+    transform: rotate(180deg);  /* Перевернуть для симметрии */
 }
 .sentence {
     cursor: pointer;
@@ -33,15 +57,18 @@ h3 {
 }
 .trans-display {
     display: none;
-    margin-left: 10px;
-    padding: 5px;
+    margin: 10px 0;
+    padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 3px;
-    position: absolute;
+    position: relative;
     z-index: 1;
     white-space: normal;
-    max-width: 300px;
+    width: 100%;
+    font-family: Georgia, serif;  /* Приятный шрифт для читаемости */
+    font-size: 16px;
+    line-height: 1.5;
 }
 button#play-all {
     display: block;
@@ -58,4 +85,26 @@ button#play-all {
         position: static;
         max-width: none;
     }
+}
+.play-para {
+    display: block;
+    margin: 10px 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#speed-select {
+    padding: 5px;
+    font-size: 14px;
+}
+.stop-btn {
+    background-color: #ffdddd;  /* Красный фон для выделения */
+    font-weight: bold;  /* Жирный шрифт */
 }
