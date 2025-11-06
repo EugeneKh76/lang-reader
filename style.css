@@ -1,110 +1,126 @@
-body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    line-height: 1.6;
-    background-color: #f0f0f0;  /* Мягкий серый фон для страницы */
-}
-h1, h2 {
-    text-align: center;
-}
-h3 {
-    text-align: center;
-    margin-top: 20px;
-}
-.text-container {
-    margin-bottom: 20px;
-    background-color: #fdfcf7;  /* Бежевый фон как старая бумага */
-    background-image: repeating-linear-gradient(to bottom, #fdfcf7, #fdfcf7 99%, #e0d8c0 100%);  /* Лёгкая текстура полосками "под старину" */
-    background-size: 100% 2px;  /* Тонкие линии для текстуры */
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Тень для "книжного" вида */
-    border-radius: 5px;  /* Лёгкие закруглённые углы */
-    position: relative;  /* Для pseudo-элементов */
-}
-.text-container::before, .text-container::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 20px;  /* Увеличил высоту для более заметного эффекта */
-    background: linear-gradient(to bottom, #fdfcf7 0%, transparent 100%);  /* Градиент для "рваного" края в стиле рукописи */
-    z-index: -1;
-}
-.text-container::before {
-    top: -20px;  /* Верхний рваный край */
-}
-.text-container::after {
-    bottom: -20px;  /* Нижний рваный край */
-    transform: rotate(180deg);  /* Перевернуть для симметрии */
-}
-.sentence {
-    cursor: pointer;
-    display: inline;
-}
-.faded {
-    opacity: 0.5;
-}
-.icon-btn {
-    margin-left: 5px;
-    padding: 2px 5px;
-    font-size: 12px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
-    border-radius: 3px;
-}
-.trans-display {
-    display: none;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    position: relative;
-    z-index: 1;
-    white-space: normal;
-    width: 100%;
-    font-family: Georgia, serif;  /* Приятный шрифт для читаемости */
-    font-size: 16px;
-    line-height: 1.5;
-}
-button#play-all {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-    .trans-display {
-        position: static;
-        max-width: none;
-    }
-}
-.play-para {
-    display: block;
-    margin: 10px 0;
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-.controls {
-    text-align: center;
-    margin-bottom: 20px;
-}
-#speed-select {
-    padding: 5px;
-    font-size: 14px;
-}
-.stop-btn {
-    background-color: #ffdddd;  /* Красный фон для выделения */
-    font-weight: bold;  /* Жирный шрифт */
-}
+body {  
+    font-family: Arial, sans-serif;  
+    max-width: 800px;  
+    margin: 0 auto;  
+    padding: 20px;  
+    line-height: 1.6;  
+    background-color: #f0f0f0;  /* Мягкий серый фон для страницы */  
+}  
+h1, h2 {  
+    text-align: center;  
+}  
+h3 {  
+    text-align: center;  
+    margin-top: 20px;  
+}  
+.text-container {  
+    margin-bottom: 20px;  
+    background-color: #fdfcf7;  /* Бежевый фон как старая бумага */  
+    background-image: repeating-linear-gradient(to bottom, #fdfcf7, #fdfcf7 99%, #e0d8c0 100%);  /* Лёгкая текстура полосками "под старину" */  
+    background-size: 100% 2px;  /* Тонкие линии для текстуры */  
+    padding: 20px;  
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Тень для "книжного" вида */  
+    border-radius: 5px;  /* Лёгкие закруглённые углы */  
+    position: relative;  /* Для pseudo-элементов */  
+}  
+.text-container::before, .text-container::after {  
+    content: '';  
+    position: absolute;  
+    left: 0;  
+    right: 0;  
+    height: 20px;  /* Увеличил высоту для более заметного эффекта */  
+    background: linear-gradient(to bottom, #fdfcf7 0%, transparent 100%);  /* Градиент для "рваного" края в стиле рукописи */  
+    z-index: -1;  
+}  
+.text-container::before {  
+    top: -20px;  /* Верхний рваный край */  
+}  
+.text-container::after {  
+    bottom: -20px;  /* Нижний рваный край */  
+    transform: rotate(180deg);  /* Перевернуть для симметрии */  
+}  
+.sentence {  
+    cursor: pointer;  
+    display: inline;  
+}  
+.faded {  
+    opacity: 0.5;  
+}  
+.icon-btn {  
+    margin-left: 5px;  
+    padding: 2px 5px;  
+    font-size: 12px;  
+    cursor: pointer;  
+    border: 1px solid #ccc;  
+    background-color: #f0f0f0;  
+    border-radius: 3px;  
+}  
+.trans-display {  
+    display: none;  
+    margin: 10px 0;  
+    padding: 10px;  
+    background-color: #f9f9f9;  
+    border: 1px solid #ccc;  
+    border-radius: 3px;  
+    position: relative;  
+    z-index: 1;  
+    white-space: normal;  
+    width: 100%;  
+    font-family: Georgia, serif;  /* Приятный шрифт для читаемости */  
+    font-size: 16px;  
+    line-height: 1.5;  
+}  
+button#play-all {  
+    display: block;  
+    margin: 20px auto;  
+    padding: 10px 20px;  
+    font-size: 16px;  
+    cursor: pointer;  
+}  
+@media (max-width: 600px) {  
+    body {  
+        padding: 10px;  
+    }  
+    .trans-display {  
+        position: static;  
+        max-width: none;  
+    }  
+}  
+.play-para {  
+    display: inline-block;  
+    margin: 10px 5px 10px 0;  
+    padding: 5px 10px;  
+    font-size: 14px;  
+    cursor: pointer;  
+    background-color: #e0d8c0;  /* Бежевый фон в спокойном тоне */  
+    border: 1px solid #ccc;  
+    border-radius: 3px;  
+    font-family: Georgia, serif;  /* Спокойный шрифт, как в книге */  
+}  
+.watch-para {  
+    display: inline-block;  
+    margin: 10px 0;  
+    padding: 5px 10px;  
+    font-size: 14px;  
+    cursor: pointer;  
+    background-color: #e0d8c0;  /* Бежевый фон в спокойном тоне */  
+    border: 1px solid #ccc;  
+    border-radius: 3px;  
+    font-family: Georgia, serif;  /* Спокойный шрифт, как в книге */  
+}  
+.controls {  
+    text-align: center;  
+    margin-bottom: 20px;  
+}  
+#speed-select {  
+    padding: 5px;  
+    font-size: 14px;  
+}  
+.stop-btn {  
+    background-color: #ffdddd;  /* Красный фон для выделения */  
+    font-weight: bold;  /* Жирный шрифт */  
+}  
+.back-btn {  
+    background-color: #d4edda;  /* Приятный зеленоватый фон */  
+    font-weight: bold;  /* Жирный шрифт */  
+}  
